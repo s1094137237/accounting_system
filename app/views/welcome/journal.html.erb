@@ -1,0 +1,40 @@
+<%= render 'shared/header' %>
+
+			<article class="wrapper style1">
+				<div class="container">
+					<div class="row">
+					
+<h1>日記簿分錄</h1>
+
+<table border="1" cellpadding="6" cellspacing="0">
+  <thead>
+    <tr>
+      <th>日期</th>
+      <th>借方科目</th>
+      <th>借方金額</th>
+      <th>貸方科目</th>
+      <th>貸方金額</th>
+    </tr>
+  </thead>
+  <tbody>
+  
+    <% @journal_entries.each do |entry| %>
+      <tr>
+        <td><%= entry.entry_date.strftime("%Y-%m-%d") %></td>
+        <td><%= entry.debit_subject %></td>
+        <td><%= number_to_currency(entry.debit_amount, unit: "", precision: 2) %></td>
+        <td><%= entry.credit_subject %></td>
+        <td><%= number_to_currency(entry.credit_amount, unit: "", precision: 2) %></td>
+      </tr>
+    <% end %>
+        
+  </tbody>
+</table>
+
+					
+					</div>
+				</div>
+			</article>
+			
+
+<%= render 'shared/footer' %>
