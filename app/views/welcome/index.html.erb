@@ -1,35 +1,29 @@
 <%= render 'shared/header' %>
-
-			<article class="wrapper style1">
-				<div class="container">
-					<div class="row">
-					
-
-<h1>會計科目表</h1>
-
-<table border="1" cellspacing="0" cellpadding="5">
-  <thead>
-    <tr>
-      <th>ID</th>
-      <th>類別 (Category)</th>
-      <th>科目 (Subject)</th>
-    </tr>
-  </thead>
-  <tbody>
-    <% @account_subjects.each do |subject| %>
-      <tr>
-        <td><%= subject.id %></td>
-        <td><%= subject.category %></td>
-        <td><%= subject.subject %></td>
-      </tr>
-    <% end %>
-  </tbody>
-</table>
-
-					
-					</div>
-				</div>
-			</article>
+	<article class="wrapper style1">
+		<div class="container">
+			<div class="row">
+				<h1>會計科目表</h1>
+				<table border="1" cellspacing="0" cellpadding="5">
+  				<thead>
+    				<tr>
+      					<th>ID</th>
+      					<th>類別 (Category)</th>
+      					<th>科目 (Subject)</th>
+    				</tr>
+  				</thead>
+  				<tbody>
+    				<% @account_subjects.each do |subject| %>
+      					<tr>
+        					<td><%= subject.id %></td>
+        					<td><%= subject.category %></td>
+        					<td><%= subject.subject %></td>
+      					</tr>
+    				<% end %>
+  				</tbody>
+				</table>	
+			</div>
+		</div>
+	</article>
 			
 
 <%= render 'shared/footer' %>

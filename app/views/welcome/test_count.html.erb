@@ -1,50 +1,37 @@
 <%= render 'shared/header' %>
-
-
 <article class="wrapper style1">
 	<div class="container">
 		<div class="row">
-					
 			<h1>試算表</h1>
 
-<table border="1" cellpadding="6" cellspacing="0">
-  <thead>
-    <tr>
-      <th>科目</th>
-      <th>借方</th>
-      <th>貸方</th>
-    </tr>
-  </thead>
-  <tbody>
-    <% @test_ount.each do |subject| %>
-          <tr>
-        <td><%= subject.subject %></td>
-        <td><%= subject.cal > 0 ? subject.cal : "" %></td>
-        <td><%= subject.cal < 0 ? subject.cal : "" %></td>
-      </tr>
-      
-  <% val = subject.cal || 0 %>
-  <% val > 0 ? (@debit += val) : (@credit += val) %>
-    <% end %>
-  	<tr>
-        <td>(總結)</td>
-        <td><%= @debit %></td>
-        <td><%= @credit %></td>
-
-    </tr>
-  </tbody>
-</table>
-
-					
-					</div>
-				</div>
-			</article>
-			
+			<table border="1" cellpadding="6" cellspacing="0">
+  			<thead>
+    			<tr>
+      				<th>科目</th>
+      				<th>借方</th>
+      				<th>貸方</th>
+    			</tr>
+  			</thead>
+  			<tbody>
+    		<% @test_ount.each do |subject| %>
+          		<tr>
+        			<td><%= subject.subject %></td>
+        			<td><%= subject.cal > 0 ? subject.cal : "" %></td>
+        			<td><%= subject.cal < 0 ? subject.cal : "" %></td>
+      			</tr>
+  			<% val = subject.cal || 0 %>
+  				<% val > 0 ? (@debit += val) : (@credit += val) %>
+    		<% end %>
+  				<tr>
+        			<td>(總結)</td>
+        			<td><%= @debit %></td>
+        			<td><%= @credit %></td>
+    			</tr>
+  			</tbody>
+			</table>
 
 					
 		</div>
 	</div>
 </article>
-			
-
 <%= render 'shared/footer' %>

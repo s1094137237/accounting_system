@@ -1,15 +1,20 @@
 class WelcomeController < ApplicationController
+#****
+#取得五月份日記表，產出財務三大表。
+#****
+
+#會計科目表
   def index
 #  	@entries = JournalEntry.all
-# 取得所有會計科目
 	@account_subjects = AccountSubject.all
   end
   
+#日記簿分錄
   def journal
 	@journal_entries = JournalEntries.all.order(entry_date: :desc)
   end
   
-  
+#試算表
   def test_count
   	@debit =0
   	@credit =0
@@ -22,12 +27,17 @@ class WelcomeController < ApplicationController
 	FROM `account_subjects` WHERE 1
 SQL
   end
+
+#三大財務報表
   def statement
+   #損益表最低日期
    result= JournalEntries.find_by_sql("select min(entry_date) as val from journal_entries")
    @start_data = result.first.val
+   #損益表最高日期
    result = JournalEntries.find_by_sql("select max(entry_date) as val from journal_entries")
    @end_data  = result.first.val
-  #損益表
+   
+#1 損益表
   result = JournalEntries.find_by_sql("select sum(credit_amount) as val from journal_entries
   where credit_subject = '銷貨收入'")
 @sales_revenue = result.first.val
@@ -55,8 +65,7 @@ SQL
   	@net_income -= subject.val
   end
 
-#資產負債表
-
+#2 資產負債表
 @assets = AccountSubject.find_by_sql(<<-SQL)
   SELECT subject,
     (
@@ -115,9 +124,8 @@ SQL
   
 @retained_earnings = @net_income
 @total_liabilities += @retained_earnings
-#現金流量表
 
-#business
+#3 現金流量表
 arr_business_debit = ["銷貨收入"]
 sql = <<~SQL
 select credit_subject,

@@ -1,194 +1,166 @@
 <%= render 'shared/header' %>
+<article class="wrapper style1">
+	<div class="container">
+		<div class="row">				
+    		<div class="col">
+				<h2>損益表</h2>
 
+				<%=@start_data %>~<%=@end_data %>
+				<table>
+					<tr>
+						<td><b>收入</b>
+						<td></td>
+					</tr>
+					<tr>
+						<td>銷貨收入
+						<td><%=@sales_revenue %>
+					</tr>
+					<tr>
+						<td>銷貨成本
+						<td><%=@sales_cost %>
+					</tr>
+					<tr>
+						<td><b>銷售毛利</b>
+						<td><%=@sales_revenue - @sales_cost %>
+					</tr>
+					<tr>
+						<td><b>營業費用</b><!--loop-->
+						<td></td>
+					</tr>
 
+				<% @expenses.each do |subject| %>
+					<tr>
+						<td><%= subject.subject %></td>
+						<td><%= subject.val %></td>
+					</tr>
+				<% end %>
+					<tr>
+						<td><b>營業外費用</b>
+						<td></td>
+					</tr>
+					<tr>
+						<td>利息支出
+						<td><%=@interest_expense %>
+					</tr>
+					<tr>
+						<td><b>淨利</b>
+						<td><%=@net_income %>
+					</tr>
+				</table>
+   			</div>
+    		<div class="col">
+				<h2>資產負債表</h2>
+			<%=@end_data %>
+				<table>
+					<tr>
+						<td><b>資產</b>
+						<td></td>
+					</tr>
 
+			<% @assets.each do |subject| %>
+				<tr>
+					<td><%= subject.subject %></td>
+					<td><%= subject.val %></td>
+				</tr>
+			<% end %>
+			<tr>
+				<td><b>資產總計</b>
+				<td><%=@total_assets %>
+			</tr>
 
+			<tr>
+				<td><b>負債</b>
+				<td></td>
 
-			<article class="wrapper style1">
-				<div class="container">
-<div class="row">				
-    <div class="col">
-<h2>損益表</h2>
+		<% @liabilities.each do |subject| %>
+			<tr>
+				<td><%= subject.subject %></td>
+				<td><%= subject.val %></td>
+			</tr>
+		<% end %>
+		
+			<tr>
+				<td><b>股東權益</b>
+				<td></td>
 
-<%=@start_data %>~<%=@end_data %>
-<table>
-<tr>
-<td><b>收入</b>
-<td></td>
-</tr>
+		<% @shareholder_equity.each do |subject| %>
+			<tr>
+				<td><%= subject.subject %></td>
+				<td><%= subject.val %></td>
+			</tr>
+		<% end %>
 
-<tr>
-<td>銷貨收入
-<td><%=@sales_revenue %>
-</tr>
-
-<tr>
-<td>銷貨成本
-<td><%=@sales_cost %>
-</tr>
-
-<tr>
-<td><b>銷售毛利</b>
-<td><%=@sales_revenue - @sales_cost %>
-</tr>
-
-
-<tr>
-<td><b>營業費用</b><!--loop-->
-<td></td>
-</tr>
-
-<% @expenses.each do |subject| %>
-<tr>
-<td><%= subject.subject %></td>
-<td><%= subject.val %></td>
-</tr>
-<% end %>
-
-<tr>
-<td><b>營業外費用</b>
-<td></td>
-</tr>
-
-<tr>
-<td>利息支出
-<td><%=@interest_expense %>
-</tr>
-
-
-<tr>
-<td><b>淨利</b>
-<td><%=@net_income %>
-</tr>
-
-</table>
-
+			<tr>
+				<td>保留盈餘
+				<td><%=@retained_earnings %></td>
+			</tr>
+			<tr>
+				<td><b>負債與股東權益總計</b>
+				<td><%=@total_liabilities %></td>
+			</tr>
+		</table>
     </div>
     <div class="col">
-<h2>資產負債表</h2>
-<%=@end_data %>
-<table>
-<tr>
-<td><b>資產</b>
-<td></td>
-</tr>
+		<h2>現金流量表</h2>
+	<%=@start_data %>~<%=@end_data %>
 
-<% @assets.each do |subject| %>
-<tr>
-<td><%= subject.subject %></td>
-<td><%= subject.val %></td>
-</tr>
-<% end %>
-
-
-</tr>
-<tr>
-<td><b>資產總計</b>
-<td><%=@total_assets %>
-</tr>
-
-<tr>
-<td><b>負債</b>
-<td></td>
-
-<% @liabilities.each do |subject| %>
-<tr>
-<td><%= subject.subject %></td>
-<td><%= subject.val %></td>
-</tr>
-<% end %>
+		<table>
+			<tr>
+				<td><b>營業活動現金流</b>
+				<td></td>
+			</tr>
+		<% @business_debit.each do |subject| %>
+			<tr>
+				<td><%= subject.credit_subject %></td>
+				<td><%= subject.val %></td>
+			</tr>
+		<% end %>
 
 
+		<% @business_credit.each do |subject| %>
+			<tr>
+				<td><%= subject.debit_subject %></td>
+				<td><%= subject.val %></td>
+			</tr>
+		<% end %>
 
-<tr>
-<td><b>股東權益</b>
-<td></td>
+			<tr>
+				<td><b>投資活動現金流</b>
+				<td></td>
+			</tr>
+
+		<% @invest_credit.each do |subject| %>
+			<tr>
+				<td><%= subject.debit_subject %></td>
+				<td><%= subject.val %></td>
+			</tr>
+		<% end %>
+
+			<tr>
+				<td><b>融資活動現金流</b>
+				<td></td>
+			</tr>
+
+		<% @financing_debit.each do |subject| %>
+			<tr>
+				<td><%= subject.credit_subject %></td>
+				<td><%= subject.val %></td>
+			</tr>
+		<% end %>
+
+		<% @financing_credit.each do |subject| %>
+			<tr>
+				<td><%= subject.debit_subject %></td>
+				<td><%= subject.val %></td>
+			</tr>
+		<% end %>
 
 
-<% @shareholder_equity.each do |subject| %>
-<tr>
-<td><%= subject.subject %></td>
-<td><%= subject.val %></td>
-</tr>
-<% end %>
 
-<tr>
-<td>保留盈餘
-<td><%=@retained_earnings %></td>
-</tr>
-
-<tr>
-<td><b>負債與股東權益總計</b>
-<td><%=@total_liabilities %></td>
-</tr>
-
-
-</tr>
-</table>
+		</table>
     </div>
-    <div class="col">
-<h2>現金流量表</h2>
-<%=@start_data %>~<%=@end_data %>
-
-<table>
-<tr>
-<td><b>營業活動現金流</b>
-<td></td>
-</tr>
-<% @business_debit.each do |subject| %>
-<tr>
-<td><%= subject.credit_subject %></td>
-<td><%= subject.val %></td>
-</tr>
-<% end %>
-
-
-<% @business_credit.each do |subject| %>
-<tr>
-<td><%= subject.debit_subject %></td>
-<td><%= subject.val %></td>
-</tr>
-<% end %>
-
-<tr>
-<td><b>投資活動現金流</b>
-<td></td>
-</tr>
-
-<% @invest_credit.each do |subject| %>
-<tr>
-<td><%= subject.debit_subject %></td>
-<td><%= subject.val %></td>
-</tr>
-<% end %>
-
-<tr>
-<td><b>融資活動現金流</b>
-<td></td>
-</tr>
-
-<% @financing_debit.each do |subject| %>
-<tr>
-<td><%= subject.credit_subject %></td>
-<td><%= subject.val %></td>
-</tr>
-<% end %>
-
-<% @financing_credit.each do |subject| %>
-<tr>
-<td><%= subject.debit_subject %></td>
-<td><%= subject.val %></td>
-</tr>
-<% end %>
-
-
-
-</table>
-    </div>
-    </div>
+</div>
   
-				</div>
-			</article>
-			
-
+</div>
+</article>
 <%= render 'shared/footer' %>
