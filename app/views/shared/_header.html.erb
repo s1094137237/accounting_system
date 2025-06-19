@@ -4,22 +4,22 @@
 	html5up.net | @ajlkn
 	Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
 -->
-<html>
+<html ng-app="myApp">
 	<head>
 		<title>Miniport by HTML5 UP</title>
 		<meta charset="utf-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
-		<link rel="stylesheet" href="/html5up-miniport/assets/css/main.css">
+		<link rel="stylesheet" href="/html5up-miniport/assets/css/main.css?1">
 			</head>
-	<body class="is-preload">
+	<body class="is-preload" ng-controller="MyController">
 
 		<!-- Nav -->
 			<nav id="nav">
 				<ul class="container">
-					<li><a href="http://localhost:3000/welcome/index">會計科目表</a></li>
-					<li><a href="http://localhost:3000/welcome/journal">日記簿</a></li>
-					<li><a href="http://localhost:3000/welcome/test_count">試算表</a></li>
-					<li><a href="http://localhost:3000/welcome/statement">三大財務報表</a></li>
+					<li><a href="/welcome/index">會計科目表</a></li>
+					<li><a href="/welcome/journal">日記簿</a></li>
+					<li><a href="/welcome/test_count">試算表</a></li>
+					<li><a href="/welcome/statement">三大財務報表</a></li>
 				</ul>
 			</nav>
 

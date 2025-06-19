@@ -1514,6 +1514,8 @@ input, select, textarea {
 		margin: 0 0 0.5em 0;
 	}
 
+	form input[type=date],
+	form input[type=number],
 	form input[type=text],
 	form input[type=email],
 	form input[type=password],

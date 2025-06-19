@@ -1,0 +1,83 @@
+
+<%= render 'shared/header' %>
+<article class="wrapper style1">
+	<div class="container"  >
+		<div class="row" >
+			<h1>新增日記簿分錄</h1>
+		</div>
+		
+		
+		<div class="col-12">
+			<form ng-submit="submitJournal()">
+				<div class="row">
+					<div class="col-12">
+						日期：<input  type="date" ng-model="journal.entry_date"  placeholder="日期" />
+					</div>
+					<div class="col-6 col-12-small">
+						<select ng-model="journal.debit_subject" 
+						ng-options="borrow.id as borrow.name for borrow in borrows ">
+    						<option value="">-- 借方科目 --</option>
+  						</select>
+					</div>
+					<div class="col-6 col-12-small">
+						<input type="number" ng-model="journal.debit_amount" placeholder="借方科目金額" />
+					</div>
+					<div class="col-6 col-12-small">
+						<select ng-model="journal.credit_subject" 
+						ng-options="loan.id as loan.name for loan in loans">
+    						<option value="">-- 貸方科目 --</option>
+  						</select>
+					</div>
+					<div class="col-6 col-12-small">
+						<input type="number" ng-model="journal.credit_amount" placeholder="貸方科目金額" />
+					</div>
+					
+					<div class="col-6 col-12-small">
+						<div ng-if="!isAmountEqual() && journal.debit_amount && journal.credit_amount" style="color:red">
+    						借方與貸方金額不一致
+  						</div>
+  					</div>
+					<div class="col-12">
+					<button type="submit" ng-disabled="!isAmountEqual()" >送出</button>
+					</div>
+				</div>
+			</form>
+		</div>
+						
+						
+	</div>
+</article>
+<%= render 'shared/footer' %>
+
+<script>
+  // Rails 轉成 JSON 給 Angular 用
+    	window.citiesFromRails = <%= raw @cities.to_json %>;
+</script>
+<script>
+
+  var app = angular.module('myApp', []);
+
+  app.controller('MyController', function($scope, $http, $window) {
+    //下拉式選單內容
+    $scope.loans = window.citiesFromRails || [];
+    $scope.borrows = window.citiesFromRails || [];
+    
+    $scope.isAmountEqual = function() {
+      return $scope.journal.debit_amount == $scope.journal.credit_amount;
+    };
+    
+    //送出內容
+    $scope.submitJournal = function() {
+    	$http.post('/api/v1/journal',$scope.journal)
+        	.then(function(response) {
+          	alert('成功！回傳：' + JSON.stringify(response.data));
+          	$window.location.href ='/welcome/journal';
+        	}, function(error) {
+          	alert('失敗！錯誤碼：' + error.status);
+        });
+	};
+//    可選預設值：
+//    $scope.selectedCity = $scope.cities[0];
+ });
+</script>
+

@@ -12,13 +12,11 @@
     				</tr>
   				</thead>
   				<tbody>
-    				<% @account_subjects.each do |subject| %>
-      					<tr>
-        					<td><%= subject.id %></td>
-        					<td><%= subject.category %></td>
-        					<td><%= subject.subject %></td>
-      					</tr>
-    				<% end %>
+    				<tr ng-repeat="j in account">
+      					<td>{{ j.id }}</td>
+      					<td>{{ j.category }}</td>
+      					<td>{{ j.subject }}</td>
+    				</tr>
   				</tbody>
 				</table>	
 			</div>
@@ -27,3 +25,16 @@
 			
 
 <%= render 'shared/footer' %>
+
+ <script>
+    angular.module('myApp', [])
+      .controller('MyController', function($scope, $http) {
+        $scope.account = [];
+        $http.get('/api/v1/account')
+          .then(function(response) {
+            $scope.account = response.data;
+          }, function(error) {
+            console.error('API 讀取失敗：', error.status);
+          });
+      });
+  </script>

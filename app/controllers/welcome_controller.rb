@@ -194,5 +194,11 @@ SQL
 
 
   end
-  
+
+#新增日記簿
+	def journal_new 
+	    result = JournalEntries.find_by_sql("SELECT subject FROM account_subjects")
+		@cities = result.map { |c| { id: c.subject, name: c.subject } }
+	end
+
 end
